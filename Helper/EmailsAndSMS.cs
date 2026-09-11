@@ -80,8 +80,8 @@ namespace TermInsuranceNotification.Helper
                     {
                         if (_config.IsTestingEmail)
                         {
-                            model.strToEmail = _config.TestEmails ?? string.Empty;
-                            model.strCC = "";
+                            model.strToEmail = "rajavi.bilakhia@cfsgroup.com"; //_config.TestEmails ?? string.Empty;
+                            model.strCC = "techsupport2@cfsgroup.com,nandan.hegde@csgroup.com";
                             model.strBcc = "";
                             model.strSubject = "Testing - "+ sub;
                         }
