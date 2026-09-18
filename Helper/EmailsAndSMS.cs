@@ -80,10 +80,10 @@ namespace TermInsuranceNotification.Helper
                     {
                         if (_config.IsTestingEmail)
                         {
-                            model.strToEmail = "rajavi.bilakhia@cfsgroup.com"; //_config.TestEmails ?? string.Empty;
-                            model.strCC = "techsupport2@cfsgroup.com,nandan.hegde@csgroup.com";
+                            model.strToEmail = _config.TestEmails ?? string.Empty;
+                            model.strCC = "";
                             model.strBcc = "";
-                            model.strSubject = "Testing - "+ sub;
+                            model.strSubject = "Test - " + sub;
                         }
                         else
                         {
@@ -124,11 +124,11 @@ namespace TermInsuranceNotification.Helper
                         result = response.Content.ReadAsStringAsync().Result;  // Sync read
                         if (result != null)
                             apires = JsonConvert.DeserializeObject<SendEmailResponse>(result);
-                        var path = @"C:\ContinentalArchiveDev\MedicalUPS\24813\Broker of Records (BOR)_2.pdf";
-                        apires.Message +=($"User: {Environment.UserName}, Machine: {Environment.MachineName}");
-                        apires.Message += ($"Path exists: {File.Exists(path)}");
-                        apires.Message += ($"Dir exists: {Directory.Exists(Path.GetDirectoryName(path))}");
-                        apires.Message += ($"Path bytes: {BitConverter.ToString(Encoding.UTF8.GetBytes(path))}");
+                  
+                        //apires.Message +=($"User: {Environment.UserName}, Machine: {Environment.MachineName}");
+                        //apires.Message += ($"Path exists: {File.Exists(path)}");
+                        //apires.Message += ($"Dir exists: {Directory.Exists(Path.GetDirectoryName(path))}");
+                        //apires.Message += ($"Path bytes: {BitConverter.ToString(Encoding.UTF8.GetBytes(path))}");
                     }
                     else
                     {
