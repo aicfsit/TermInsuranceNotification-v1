@@ -16,7 +16,8 @@ namespace TermInsuranceNotification.Services
             return new EmailAddresses
             {
                 To  = Combine(recipient.Email),
-                Cc  = Combine(recipient.AdvisorEmailServicing, recipient.AdvisorEmail, config.CcEmail),
+                //  Cc  = Combine(recipient.AdvisorEmailServicing, recipient.AdvisorEmail, config.CcEmail),
+                Cc = Combine( recipient.AdvisorEmail),
                 Bcc = Combine(config.BccEmail)
             };
         }
