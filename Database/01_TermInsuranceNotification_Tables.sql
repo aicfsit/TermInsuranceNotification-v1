@@ -125,15 +125,16 @@ MERGE dbo.tbl_client_notification_details AS tgt
 USING
 (
     VALUES
-      ('Term Insurance - 2 Months Before Expiry', '2M',  60, 'Term_Insurance_2_Months.html', 'Two months to take care of the details'),
-      ('Term Insurance - 1 Month Before Expiry',  '1M',  30, 'Term_Insurance_1_Month.html',  'One month to make sure everything is in order'),
-      ('Term Insurance - 15 Days Before Expiry',  '15D', 15, 'Term_Insurance_15_Days.html',  'Your term insurance policy ends in 15 days')
+      ('Term Insurance - 2 Months Before Expiry', '2M',  60, 'Term_Insurance_2_Months.html', '15 days left to review your term insurance payment instructions',null,null,'techsupport2@cfsgroup.com,nisha.nadesan@cfsgroup.com',1),
+      ('Term Insurance - 1 Month Before Expiry',  '1M',  30, 'Term_Insurance_1_Month.html',  '30 days left to review your term insurance payment instructions',null,null,'techsupport2@cfsgroup.com,nisha.nadesan@cfsgroup.com',1),
+      ('Term Insurance - 15 Days Before Expiry',  '15D', 15, 'Term_Insurance_15_Days.html',  '15 days left to review your term insurance payment instructions',null,null,'techsupport2@cfsgroup.com,nisha.nadesan@cfsgroup.com',1)
 ) AS src (ReportName, IntervalCode, DaysBeforeExpiry, TemplateFile, Email_Subject)
     ON tgt.IntervalCode = src.IntervalCode
 WHEN NOT MATCHED BY TARGET THEN
-    INSERT (ReportName, IntervalCode, DaysBeforeExpiry, TemplateFile, Email_Subject, CC_Email, Status)
+    INSERT (ReportName, IntervalCode, DaysBeforeExpiry, TemplateFile, Email_Subject,Email_body, CC_Email,Bcc_Email, Status)
     VALUES (src.ReportName, src.IntervalCode, src.DaysBeforeExpiry, src.TemplateFile, src.Email_Subject,
             NULL,            -- CLRT team distribution list goes here
+			NULL,'techsupport2@cfsgroup.com,nisha.nadesan@cfsgroup.com'
             1)
 WHEN MATCHED THEN
     UPDATE SET tgt.ReportName       = src.ReportName,

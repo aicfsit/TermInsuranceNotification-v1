@@ -4,8 +4,19 @@ using TermInsuranceNotification.Helper;
 using TermInsuranceNotification.Repository;
 using TermInsuranceNotification.Services;
 
-var builder = Host.CreateApplicationBuilder(args);
+// A Windows service starts with the working directory set to C:\Windows\System32,
+// so the content root must be pinned to the folder the exe lives in - otherwise
+// appsettings.json is never found and every setting falls back to its default.
+var builder = Host.CreateApplicationBuilder(new HostApplicationBuilderSettings
+{
+    Args = args,
+    ContentRootPath = AppContext.BaseDirectory
+});
 
+builder.Services.AddWindowsService(options =>
+{
+    options.ServiceName = "TermInsuranceNotification";
+});
 // "ApplicationLogs" section: connection strings, email API settings, testing switch.
 var appConfig = builder.Configuration.GetSection("ApplicationLogs").Get<ApplicationLogsConfig>()
                 ?? new ApplicationLogsConfig();
